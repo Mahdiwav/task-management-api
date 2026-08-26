@@ -1,4 +1,9 @@
 from fastapi import FastAPI, status
+from app.routers import tasks
+from app.database import Base, engine
+from app.models import Task
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Task Management API",
@@ -7,6 +12,8 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+app.include_router(tasks.router, prefix="/tasks", tags=["tasks"])
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 async def health_check():
