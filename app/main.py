@@ -1,13 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 
-app = FastAPI()
+app = FastAPI(
+    title="Task Management API",
+    description="Simple CRUD API for managing tasks",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+)
 
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+@app.get("/health", status_code=status.HTTP_200_OK)
+async def health_check():
+    return {"status": "ok"}
