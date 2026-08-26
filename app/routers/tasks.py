@@ -11,8 +11,8 @@ def list_tasks(
     skip: int = Query(0, ge=0),
     limit: int = Query(20, ge=1, le=100),
     is_completed: Optional[bool] = Query(None),
-    sort: Optional[str] = Query("created_at", regex="^(id|title|created_at|is_completed)$"),
-    order: Optional[str] = Query("desc", regex="^(asc|desc)$"),
+    sort: Optional[str] = Query("created_at", pattern="^(id|title|created_at|is_completed)$"),
+    order: Optional[str] = Query("desc", pattern="^(asc|desc)$"),
     db: Session = Depends(get_db),
     search: Optional[str] = Query(None)
 ):
