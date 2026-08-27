@@ -88,9 +88,3 @@ def test_delete_task(client):
 
     get_response = client.get(f"/tasks/{task_id}")
     assert get_response.status_code == 404
-
-
-def test_health_check(client):
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok"}

@@ -2,11 +2,13 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from app.config import settings
 from app.main import app
 from app.database import Base, get_db
 import os
 
-TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL", "postgresql+psycopg2://task_api_user:12345@localhost:5433/tasks_test")
+TEST_DATABASE_URL = settings.TEST_DATABASE_URL
 
 engine = create_engine(TEST_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
